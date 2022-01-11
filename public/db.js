@@ -17,3 +17,14 @@ request.onsuccess = function(event) {
   request.onerror = function(event) {
     console.log("You ran into an error" + event.target.errorCode);
   };
+
+  function saveRecord(record) {
+    const transaction = db.transaction(['pending'], 'readwrite');
+    const store = transaction.objectStore('pending');
+    store.add(record);
+  };
+  
+  function checkDatabase() {
+    const transaction = db.transaction(['pending'], 'readwrite');
+    const store = transaction.objectStore('pending');
+    const getAll = store.getAll();
