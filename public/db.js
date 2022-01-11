@@ -6,3 +6,14 @@ request.onupgradeneeded = function(event) {
   const db = event.target.result;
   db.createObjectStore('pending', { autoIncrement: true });
 };
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+    if(navigator.onLine) {
+      checkDatabase();
+    }
+  };
+
+  request.onerror = function(event) {
+    console.log("You ran into an error" + event.target.errorCode);
+  };
